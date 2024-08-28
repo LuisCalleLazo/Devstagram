@@ -19,7 +19,7 @@ use App\Http\Controllers\RegisterController;
 
 
 Route::get('/', function () {
-    return view('principal');
+    return view('dashboard');
 });
 
 
