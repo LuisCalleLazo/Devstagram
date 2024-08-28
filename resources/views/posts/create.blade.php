@@ -7,7 +7,10 @@
 @section('content')
     <div class="flex items-center justify-around">
         <div class="w-1/2 px-10">
-            Imagen aqui
+            <form id="dropzone" class="dropzone border-dashed border2 w-full h-96 rounded
+                flex flex-col justify-center items-center" action="/Imagenes">
+
+            </form>
         </div>
 
         <div class="w-1/2 bg-white rounded-lg p-10">
