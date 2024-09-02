@@ -12,18 +12,19 @@ class ImageController extends Controller
     {
         $image = $request->file('file');
 
-        $name = Str::uuid().".".$image->extension();
-        $imageServer = Image::make($image);
+        if (!$image || !$image->isValid()) {
+            return response()->json(['error' => 'Invalid image upload.'], 400);
+        }
 
-        $imageServer->fit(1000, 1000);
-        $imagePath = public_path('uploads') . '/' . $name;
+        // Generar un nombre único para la imagen
+        $name = Str::uuid().".".$image->getClientOriginalExtension();
 
-        $imageServer->save($imagePath);
+        // Definir la ruta donde se guardará la imagen
+        $imagePath = public_path('uploads');
 
-        return response()->json(
-            [
-                'imagen' => $image->extension()
-            ]
-        );
+        // Mover la imagen a la carpeta de destino
+        $image->move($imagePath, $name);
+
+        return response()->json(['imagen' => $name]);
     }
 }
